@@ -2,7 +2,7 @@
 
 ## Main sketch
 
-`ESP8266_Si4732_SSB_Rx.ino`
+`ESP8266-Si4732-SSB-Receiver.ino`
 
 Contains:
 

@@ -1,3 +1,35 @@
+# Changelog
+
+## v1.3.0
+- Fixed Web BFO slider updates so the OLED immediately reflects the selected BFO value.
+- Web `bfo` and `bfoSet` commands now refresh the OLED after applying the value.
+- Preserved the working memory RECALL, direct frequency SET, BAND - / BAND +, STORE, MUTE, bandwidth, volume and WiFi Manager controls.
+
+## v1.2.9
+- Restored the missing **SET** button beside the Web Control Interface frequency entry.
+- Frequency can be entered manually and applied explicitly with **SET** (or Enter).
+- The 1-second status refresh no longer overwrites the frequency field while the user is editing it.
+- Preserved working memory RECALL, BAND - / BAND +, STORE, MUTE, BFO, bandwidth, volume and WiFi Manager controls.
+
+
+## v1.2.8
+- Fixed Web Memory selection so changing the dropdown does **not** tune the receiver.
+- Fixed/validated memory EEPROM handling with a format marker and corruption checks.
+- Invalid legacy memory data (including impossible values such as 4 kHz) is repaired from `MEM_TABLE`.
+- Added explicit UTF-8 declaration for the Web UI.
+- Preserved working BAND UP / BAND DOWN controls and all v1.2.6 features.
+
+## v1.2.8
+
+- Restored dedicated **BAND - / BAND +** controls to the Web Control Interface.
+- The controls use the existing band-selection API and do not alter the frozen OLED layout.
+- Preserved the v1.2.5 memory dropdown, STORE/RECALL, MUTE, BFO, bandwidth, volume and WiFi Manager functionality.
+
+## v1.2.5
+
+- Fixed the Web Interface memory selector so every dropdown entry shows the stored frequency and mode, e.g. `M1 — 7.074 MHz LSB`, or `Empty` when unused.
+- STORE and RECALL refresh the dropdown immediately.
+
 ## v1.2.4
 - Restored the dedicated MUTE control to the Web Control Interface.
 - MUTE state is shown as MUTE ON/OFF and remains synchronized with receiver status.

@@ -119,7 +119,7 @@ AM:
 /cmd?a=mem_recall&v=0
 ```
 
-Slots are zero-based in the API and correspond to M1–M10 in firmware storage. The Web Control Interface also exposes M1–M10 STORE and RECALL controls, and the memory dropdown shows each stored frequency and mode (or Empty).
+Slots are zero-based in the API and correspond to M1–M10 in firmware storage. The Web Control Interface also exposes M1–M10 STORE and RECALL controls, and the memory dropdown shows each stored frequency and mode (or Empty). The Frequency field is applied with the SET button (or Enter); editing the field alone does not tune the receiver.
 
 
 ## WiFi Manager
@@ -132,3 +132,7 @@ Starts the WiFiManager configuration portal. This endpoint is exposed by the **W
 - After successful configuration, the receiver stores the STA-configured state and restarts.
 - Subsequent boots automatically try the saved local Wi-Fi network in AP-first mode.
 - If configuration times out or fails, the receiver returns to the normal `Si4732-Rx` AP.
+
+### Band selection
+
+The Web Control Interface uses the existing `/cmd` action `band` with `v=-1` for BAND - and `v=1` for BAND +.

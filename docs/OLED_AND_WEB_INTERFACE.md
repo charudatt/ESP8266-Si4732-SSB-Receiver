@@ -1,105 +1,47 @@
-# OLED and Web Interface
+# OLED and Web Control Interface
 
-## Frozen OLED display layout — firmware v1.2.1
+## Frozen OLED layout — v1.2.4
 
-The OLED layout is frozen. The combined illustration below is the project documentation reference for both the display and the browser controls.
-
-![OLED and Web Interface](display_web_interface.png)
-
-The 128×64 OLED uses the following layout:
+The OLED display is intentionally frozen for the current project baseline.
 
 | OLED row | Content |
 |---|---|
-| 0–1 | Frequency in large font + Mode in smaller font, with one character space between them |
-| 2 | `Step: XX` and `V:XX` |
-| 3 | `BFO: ON/OFF` and selected `BW` |
-| 4 | Blank |
-| 5 | Blank / explicitly cleared |
+| 0–1 | Large frequency + reduced-size mode, with one character space between them |
+| 2 | Step + Volume; `V:XX` is shifted two character spaces to the right |
+| 3 | BFO + Bandwidth (`BW`) |
+| 4 | Blank / cleared |
+| 5 | Blank / cleared |
 | 6 | Active Web Interface IP address |
-| 7 | Firmware version and status |
+| 7 | Firmware version + status |
 
-The OLED intentionally does **not** show SSID, RSSI, SNR or Band.
+The OLED does **not** show SSID, RSSI, SNR or Band.
 
-Example:
+## Web Control Interface — v1.2.4
 
-```text
-14200 LSB
-Step:  1  V:47
-BFO: OFF BW:3.0
+The Web Interface is designed for both phones/tablets and larger screens. Its main controls are:
 
+1. Frequency / mode / step information
+2. Tuning controls
+3. AM / FM / LSB / USB mode selection
+4. Volume control
+5. **MUTE** control
+6. BFO ON/OFF and centred BFO slider
+7. Bandwidth selection
+8. Memory selector with the stored frequency and mode in every dropdown entry
+9. **STORE** and **RECALL** memory controls
+10. WiFi Manager
+11. Receiver status including RSSI, SNR, Wi-Fi mode, IP and uptime
 
-192.168.4.1
-v1.2.1 READY
-```
+The RESET control was deliberately removed.
 
-The OLED rows that are not used are explicitly cleared so that text from a previous screen cannot remain visible.
+## Memory selector
 
-## Web interface
+Each dropdown entry identifies the actual stored state, for example `M1 — 7.074 MHz LSB`. Empty channels are shown as `Empty`. This avoids having to guess which frequency is stored in a memory channel.
 
-The primary browser control page is structured to match the documentation illustration:
+After STORE, the selector is refreshed so the newly stored frequency/mode is immediately visible.
 
-1. Frequency, Mode and Step
-2. Four tuning buttons
-3. AM / FM / LSB / USB mode buttons
-4. Volume slider and value
-5. BFO ON/OFF, centred −16,000 to +16,000 Hz slider and numeric value
-6. Bandwidth selector
-7. WiFi Manager button for local-network configuration
-8. Receiver status area with RSSI, SNR, Si4732 status, Wi-Fi mode/IP and uptime
+## Wi-Fi controls
 
-The RESET control is intentionally absent.
+The Web Interface can operate in AP or STA mode. The default project configuration is AP-first. WiFiManager can be invoked from the Web Interface to configure a local network. Once valid credentials have been saved, the receiver can operate in STA mode; if the network cannot be reached it falls back to AP mode.
 
-### BFO control
-
-The BFO is controlled by a slider-style control with:
-
-- Range: −16,000 Hz to +16,000 Hz
-- Resolution: 10 Hz
-- Numeric value display
-- BFO enable/disable control
-
-The BFO control is intended primarily for SSB operation.
-
-### Bandwidth
-
-The web interface provides selectable SSB and AM bandwidth settings. The selected bandwidth is also shown beside the BFO state on the OLED.
-
-## Wi-Fi modes
-
-The Web Control Interface supports two operating modes selected in `Config.h`:
-
-```cpp
-#define WEB_UI_WIFI_MODE_AP   0
-#define WEB_UI_WIFI_MODE_STA  1
-#define WEB_UI_WIFI_MODE      WEB_UI_WIFI_MODE_AP
-```
-
-### AP-first mode — default
-
-The ESP8266 creates the local receiver network:
-
-- SSID: `Si4732-Rx`
-- Password: `12345678`
-- Web address: `http://192.168.4.1`
-
-The Web Interface includes a **WiFi Manager** button. Use it to connect the receiver to an existing local Wi-Fi network. After successful configuration, the receiver restarts and automatically attempts STA mode on later boots.
-
-If the saved network is unavailable, the receiver falls back to the normal `Si4732-Rx` AP.
-
-### STA mode
-
-Set:
-
-```cpp
-#define WEB_UI_WIFI_MODE WEB_UI_WIFI_MODE_STA
-```
-
-The firmware prefers STA at startup using `Config.h` credentials or WiFiManager-saved credentials. If no usable connection is available, WiFiManager can start automatically; if configuration times out, the receiver falls back to AP.
-
-See [`WIFI_MODES.md`](WIFI_MODES.md) for the complete configuration procedure.
-
-See [`WIFI_MODES.md`](WIFI_MODES.md) for the complete configuration procedure.
-
-## Documentation image
-
-The combined illustration above is intended for GitHub README pages, project documentation and builder manuals. It represents the documented receiver UI structure; the values shown are example operating values.
+![Approved OLED and Web Interface](display_web_interface.png)
